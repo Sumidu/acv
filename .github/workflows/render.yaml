@@ -28,7 +28,7 @@ jobs:
           tinytex::install_tinytex()
         shell: Rscript {0}
       - name: Render cv
-        run: Rscript -e 'rmarkdown::render("cv/cv.Rmd", output_format = "pdf_document")'
+        run: Rscript -e 'rmarkdown::render("cv/cv.Rmd", output_format = "vitae::moderncv")'
       - name: Commit results
         run: |
           git commit cv/cv.pdf -m 'Re-build cv.Rmd' || echo "No changes to commit"
