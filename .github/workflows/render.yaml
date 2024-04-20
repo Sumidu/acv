@@ -16,4 +16,3 @@ jobs:
         uses: lc5415/rmarkdown-action@v1
         with:
           input_file: ./cv.Rmd
-	  
