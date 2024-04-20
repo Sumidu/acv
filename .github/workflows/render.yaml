@@ -1,8 +1,8 @@
 on:
   push:
     branches: master
-  #schedule:
-  #  - cron: '0 0 * * MON'
+  schedule:
+    - cron: '0 0 * * MON'
     
 name: Render cv
 
@@ -10,6 +10,8 @@ jobs:
   render:
     name: Render cv to PDF
     runs-on: macOS-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v2
