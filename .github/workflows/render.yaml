@@ -15,7 +15,7 @@ jobs:
       - name: Render document
         uses: lc5415/rmarkdown-action@v1
         with:
-          input_file: cv.Rmd
+          input_file: ./cv.Rmd
 	  output_format: pdf_document
       - name: Commit files
         run: |
