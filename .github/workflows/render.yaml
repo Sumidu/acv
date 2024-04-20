@@ -16,6 +16,8 @@ jobs:
         run: |
           install.packages("rmarkdown")
           install.packages("vitae")
+          install.packages("tinytex")
+          tinytex::install_tinytex()
         shell: Rscript {0}
       - name: Render README
         run: Rscript -e 'rmarkdown::render("cv/cv.Rmd", output_format = "pdf_document")'
