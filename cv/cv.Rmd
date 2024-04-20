@@ -1,22 +1,98 @@
 ---
-name: Marie
-surname: Curie
-position: "Professor"
-address: "School of Physics & Chemistry, École Normale Supérieure"
-phone: +1 22 3333 4444
-www: mariecurie.com
-email: "Marie.Curie@ens.fr"
-twitter: mariecurie
-github: mariecurie
-linkedin: mariecurie
+title: Prof. Dr.
+surname: André Calero Valdez
+position: "Human-Computer Interaction and Usable Safety Engineering"
+address: "Institute of Multimedia and Interactive Systems, University of Lübeck"
+#phone: +1 22 3333 4444
+www: calerovaldez.com
+email: "andre.calerovaldez@uni-luebeck.de"
+profilepic: "`r paste0('..',stringr::str_remove(here::here('data','photo.jpeg'), here::here()))`"
+twitter: sumidu
+github: sumidu
+#linkedin: mariecurie
 date: "`r format(Sys.time(), '%B %Y')`"
+classoption: "sans"
+header-includes:
+  - \usepackage[utf8]{inputenc}
+  - \usepackage[T1]{fontenc}
+  - \usepackage[sfdefault,scaled=.85]{FiraSans}
+  - \usepackage{eurosym}
+  - \usepackage{csquotes}
 output: vitae::moderncv
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(vitae)
+library(tidyverse)
+source(here::here("R", "getdata.R"))
+
+library(googledrive)
+library(googlesheets4)
+
+googledrive::drive_auth(email = "andrecalerovaldez@gmail.com")
+googledrive::drive_get(id = "1dMeeUePjFQ_zPgxeIqQJysU2fai0uWTi") %>% 
+  drive_download(path = here::here("data", "download", "awardsandgrants.csv"), overwrite = TRUE)
+
+
 ```
+
+```{r data_loading, include=FALSE}
+lang <- "de"
+# Data Loading ----
+#jobs <- load_jobs(lang)
+#teaching <- load_teaching(lang)
+#service <- load_services(lang)
+#reviews <- load_reviews(lang)
+#memberships <- load_memberships(lang)
+#presentations <- load_presentations(lang)
+#grants <- load_grants(lang)
+#software <- load_software(lang)
+
+scholar_profile <- get_scholar_profile(update_pubs = TRUE)
+#rgate <- get_research_gate_score()
+```
+
+
+
+# About me
+
+```{r about_me, results="asis"}
+pd_df <- tribble(~meta, ~input,
+              "Name", "Prof. Dr. phil. André Calero Valdez", 
+              #"Geburtsdatum","22. Januar 1981",
+              #"Familienstand", "verheiratet mit Eva-Maria Peters (Studienrätin)",
+              #"Kinder", "Tochter (6 Jahre alt), Sohn (2 Jahre)",
+              #"Adresse", "Poelring 5",
+              #"", "23560 Lübeck",
+              "Email", "andrecalerovaldez@gmail.com",
+              "www", "www.calerovaldez.com",
+              "Languages", "German (mother tongue)",
+              "",         "English (fluent)",
+              "",         "Spanish (basic knowledge)"
+              )
+
+vitae::brief_entries(pd_df, when = meta, what = input, with = "") 
+```
+
+\vspace{1em}
+
+## Academic metrics
+
+```{r metrics, results="asis"}
+metrics_df <- tribble(~meta, ~input,
+              "Citations", scholar_profile$total_cites %>% as.character(),
+              "h-Index", scholar_profile$h_index %>% as.character(),
+              "i10-Index", scholar_profile$i10_index %>% as.character(),
+              "Acquired Third-Party Funding", "approx. 3 Mio \\euro",
+              )
+
+brief_entries(metrics_df, when = meta, what = input, .protect = F)
+```
+
+
+
+
 
 # Some stuff about me
 
