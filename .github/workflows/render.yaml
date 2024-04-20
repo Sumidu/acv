@@ -18,7 +18,7 @@ jobs:
           install.packages("vitae")
         shell: Rscript {0}
       - name: Render README
-        run: Rscript -e 'rmarkdown::render("./cv.Rmd", output_format = "pdf_document")'
+        run: Rscript -e 'rmarkdown::render("cv/cv.Rmd", output_format = "pdf_document")'
       - name: Commit results
         run: |
           git commit cv.pdf -m 'Re-build cv.Rmd' || echo "No changes to commit"
