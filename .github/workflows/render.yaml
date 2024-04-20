@@ -6,7 +6,7 @@ name: Render cv
 
 jobs:
   render:
-    name: Render README
+    name: Render cv to PDF
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
