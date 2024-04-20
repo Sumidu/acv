@@ -15,14 +15,17 @@ jobs:
       - uses: r-lib/actions/setup-r@v2
       - uses: r-lib/actions/setup-renv@v2
       - uses: r-lib/actions/setup-pandoc@v2
-      - name: Install rmarkdown
+      - name: Install required packages
         run: |
           install.packages("rmarkdown")
           install.packages("vitae")
+        shell: Rscript {0}
+      - name: Install tinytex
+        run: |
           install.packages("tinytex")
           tinytex::install_tinytex()
         shell: Rscript {0}
-      - name: Render README
+      - name: Render cv
         run: Rscript -e 'rmarkdown::render("cv/cv.Rmd", output_format = "pdf_document")'
       - name: Commit results
         run: |
