@@ -1,0 +1,23 @@
+Start,End,What,With,Where,Tag,Why
+3/1/2022,present,Interactive Systems (lecture), both semesters,B.Sc. Media Informatics,
+4/1/18,3/1/2022,Doctoral Colloquium (colloquium),every semester,PhD Computer Science/Technical-Communication,teaching,"In this course PhD students learn advanced research methods (systematic literature review, structural equation modeling, machine learning, agent-based modeling in Julia)."
+4/1/16,3/1/2022,Methods of technical communication (research plenary),every semester,B.Sc. Technikkommunikation,teaching,In this course students conduct reasearch in small groups and write short scientific articles. The topic changes every semester.
+4/1/16,3/31/18,Visual Recommender Systems (proseminar),every summer,B.Sc. Computer Science,teaching,In this course students present the content of a scientific paper and write a short thesis about visual recommender systems.
+10/1/15,3/1/2022,Advanced Empirical Methods for social scientists (lecture),every winter, M.A. Digital Media Communication,teaching,"In this lecture students learn advanced methods of social empirical research using the R Language (systematic literature review, formulating a research question, measurement theory, data collection, statistical evaluation, reporting)."
+,,,,,,"Teaching assistant in 2015 and 2016. Held the lecture in 2017, 2018, and 2019."
+,,,,,,"Transitioned the course from using SPSS to R for statistical analyses in 2018."
+,,,,,,"This lecture is accompanied by a seminar, where students apply the theoretical knowledge on a real life scenario."
+10/1/15,3/1/2022,Application seminar (seminar),every winter,M.A. Digital Media Communication,teaching,"Accompanying seminar to Advanced Empirical Methods for social scientists."
+10/1/13,3/1/2022,Forms of representation in science (ring lecture),every winter,B.A. Linguistics and Communication Science,teaching,"In this lecture students learn about the visual display of quantitative information and networked data."
+4/1/14,3/1/2022,Interdisciplinary Publishing (graduate seminar),every semester,All PhD students at RWTH,teaching,"In this seminar, aimed at doctoral students, participants learn about scientific publishing, scientific metrics, ethics in science and open access publishing."
+10/1/13,3/1/2022,"Usability, User Diversity, Technology acceptance (seminar)",every winter,"M.A. Digital Media Communication, M.Sc. Technical Communication, M.Sc. Mobility and Logistics", teaching,"In this seminar students try to answer a self-chosen research question."
+,,,,,,"Students in this course may pick their methods (qualitative, quantitative)."
+,,,,,,"In 2018 half of the course chose social-media-mining methods to understand public discourse in media."
+4/1/2011,9/30/2011,Interaction and Communication between Humans and Technology (seminar),once,MA Linguistics and Communication Science,teaching,"In this seminar students jointly conducted research about social media and usage motivation."
+4/1/2012,3/1/2022,Bachelor colloquium (colloquium),every semester, B.Sc. Technical communication,teaching,"In this colloquium students learn the craft of scientific writing and how to structure a research report."
+4/1/2011,9/30/2012,Research internship (internship),held twice,B.Sc. Technical communication,teaching,"In this full-time practice students had to develop their own small research question and collaborate with other participants to improve the effectiveness during a 4-week internship."
+4/1/2017,9/30/2017,Agent-Based Modelling (seminar),once, M.A. Digital Media Communication,teaching,"In this seminar students learnt to programm social simulations in Netlogo and should address complex systems research questions in the context of social media."
+4/1/2016,3/1/2022,Information Visualization and Language (seminar),every summer, M.A. Digital Media Communication,teaching,"In this seminar students learn to programm interactive information visualizations using open data sets or text-mining tools."
+,,,,,,"The programming language used in first iterations was Processing."
+,,,,,,"Currently, the course uses R, RMarkdown, Shiny and GGPlot as a programming environment."
+10/1/2009,10/01/2009,Webtechnologies (colloquium),once, M.Sc. Computer Science,teaching,"In this colloquium students learnt to programm interactive websites using PHP and Java EE"

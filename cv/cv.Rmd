@@ -27,12 +27,6 @@ library(vitae)
 library(tidyverse)
 source(here::here("R", "getdata.R"))
 
-library(googledrive)
-library(googlesheets4)
-
-googledrive::drive_auth(email = "andrecalerovaldez@gmail.com")
-googledrive::drive_get(id = "1dMeeUePjFQ_zPgxeIqQJysU2fai0uWTi") %>% 
-  drive_download(path = here::here("data", "download", "awardsandgrants.csv"), overwrite = TRUE) 
 
 
 ```

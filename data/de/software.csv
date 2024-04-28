@@ -1,0 +1,5 @@
+what,when,with,where,why
+Autor des SEMinR-Pakets,2020-01-01,,https://github.com/sem-in-r/seminr, Eine einfache Domain-Specific-Language für Strukturgleichungsmodellierung (PLS-SEM & CB-SEM)
+Autor des seminrstudio-Pakets,2021-01-01,,https://github.com/sem-in-r/seminrstudio, Interaktive Addins für das SEMinR package in RStudio
+Autor des gghilbertstrings-Pakets,2020-01-01,,https://github.com/Sumidu/gghilbertstrings, Ein Paket für die Visualisierung von linearen Daten in 2D mittels Hilbert-Kurven (ggplot2-Erweiterung).
+Autor des rmd_formats-Pakets,2019-01-01,,https://github.com/statisticsforsocialscience/rmd_templates, RMarkdown-Templates für für diverse Konferenzen und Journale.
