@@ -1,4 +1,5 @@
 # this is a file that will move all data to a sqlite database.
+# Use beekeper studio to check the data
 
 library(here)
 library(glue)
