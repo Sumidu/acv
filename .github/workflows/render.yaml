@@ -15,6 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v2
+      - name: Install OpenSSL
+        run: |
+          sudo brew install openssl
+        shell: bash
       - uses: r-lib/actions/setup-renv@v2
       - uses: r-lib/actions/setup-pandoc@v2
       - name: Install required packages
@@ -22,10 +26,6 @@ jobs:
           install.packages("rmarkdown")
           install.packages("vitae")
         shell: Rscript {0}
-      - name: Install OpenSSL
-        run: |
-          sudo brew install openssl
-        shell: bash
       - name: Install tinytex
         run: |
           install.packages("tinytex")
