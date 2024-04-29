@@ -22,6 +22,10 @@ jobs:
           install.packages("rmarkdown")
           install.packages("vitae")
         shell: Rscript {0}
+      - name: Install OpenSSL
+        run: |
+          sudo brew install openssl
+        shell: bash
       - name: Install tinytex
         run: |
           install.packages("tinytex")
