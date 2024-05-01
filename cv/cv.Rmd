@@ -25,43 +25,52 @@ output: vitae::moderncv
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(vitae)
 library(tidyverse)
+library(glue)
 library(here)
 source(here::here("R", "getdata.R"))
-
 library(DBI)
 library(RSQLite)
 library(tidyverse)
 
-db <- dbConnect(RSQLite::SQLite(), here("data", "my_data.db"))
-jobs <- tbl(db, "jobs") |> collect()
 
+
+db <- dbConnect(RSQLite::SQLite(), here("data", "my_data.db"))
+#list all tables
+dbListTables(db)
+jobs <- tbl(db, "jobs") |> collect()
+degrees <- tbl(db, "degrees") |> collect()
+education <- tbl(db, "education") |> collect()
+grants <- tbl(db, "grants") |> collect()
+awards <- tbl(db, "awards") |> collect()
+memberships <- tbl(db, "memberships") |> collect()
+reviews <- tbl(db, "reviews") |> collect()
+committees <- tbl(db, "committees") |> collect()
+services <- tbl(db, "services") |> collect()
+talks <- tbl(db, "talks") |> collect()
+lectures <- tbl(db, "lectures") |> collect()
+consulting <- tbl(db, "consulting") |> collect()
+theses <- tbl(db, "theses") |> collect()
+teaching <- tbl(db, "teaching") |> collect()
+teaching_evaluations <- tbl(db, "teaching_evaluations") |> collect()
+software <- tbl(db, "software") |> collect()
 dbDisconnect(db)
 
 ```
 
 ```{r data_loading, include=FALSE}
 lang <- "de"
-# Data Loading ----
-#jobs <- load_jobs(lang)
-#teaching <- load_teaching(lang)
-#service <- load_services(lang)
-#reviews <- load_reviews(lang)
-#memberships <- load_memberships(lang)
-#presentations <- load_presentations(lang)
-#grants <- load_grants(lang)
-#software <- load_software(lang)
 
-scholar_profile <- get_scholar_profile(update_pubs = TRUE)
-#rgate <- get_research_gate_score()
+
+scholar_profile <- get_scholar_profile(update_pubs = FALSE)
 ```
 
 
 
-# About me
+# Über mich
 
 ```{r about_me, results="asis"}
 pd_df <- tribble(~meta, ~input,
-              "Name", "Prof. Dr. phil. André Calero Valdez", 
+              "Name", "Univ.-Prof. Dr. phil. André Calero Valdez", 
               #"Geburtsdatum","22. Januar 1981",
               #"Familienstand", "verheiratet mit Eva-Maria Peters (Studienrätin)",
               #"Kinder", "Tochter (6 Jahre alt), Sohn (2 Jahre)",
@@ -69,9 +78,9 @@ pd_df <- tribble(~meta, ~input,
               #"", "23560 Lübeck",
               "Email", "andrecalerovaldez@gmail.com",
               "www", "www.calerovaldez.com",
-              "Languages", "German (mother tongue)",
-              "",         "English (fluent)",
-              "",         "Spanish (basic knowledge)"
+              "Languages", "German (Muttersprache)",
+              "",         "Englisch (fließend)",
+              "",         "Spanisch (Grundkenntnisse)",
               )
 
 vitae::brief_entries(pd_df, when = meta, what = input, with = "") 
@@ -79,14 +88,38 @@ vitae::brief_entries(pd_df, when = meta, what = input, with = "")
 
 \vspace{1em}
 
-## Academic metrics
+## Academische Metriken
 
 ```{r metrics, results="asis"}
+
+my_scale <- function (space = TRUE) 
+{
+    out <- c(0, `Tsd.` = 1000, `Mio.` = 1e+06, `Bn.` = 1e+09)
+    if (space) {
+        names(out) <- paste0(" ", names(out))
+    }
+    out
+}
+
+
+fnc <- scales::label_number(accuracy=0.01,
+                       scale_cut = my_scale() )
+
+total_own_funding <- 
+  grants$own_amount |> 
+  str_replace_all(" Mio. ", "000000 ") |> 
+  str_replace_all(",","") |> 
+  str_replace_all("\\.","") |>
+  str_replace_all("[- Euro]","") |> 
+  as.numeric() |> 
+  na.omit() |> sum() |> fnc()
+  
+
 metrics_df <- tribble(~meta, ~input,
-              "Citations", scholar_profile$total_cites %>% as.character(),
+              "Zitationen", scholar_profile$total_cites %>% as.character(),
               "h-Index", scholar_profile$h_index %>% as.character(),
               "i10-Index", scholar_profile$i10_index %>% as.character(),
-              "Acquired Third-Party Funding", "approx. 3 Mio \\euro",
+              "Drittmittel", glue::glue("ca. {total_own_funding} \\euro"),
               )
 
 brief_entries(metrics_df, when = meta, what = input, .protect = F)
@@ -96,65 +129,226 @@ brief_entries(metrics_df, when = meta, what = input, .protect = F)
 
 ```{r research}
 
+# helper functions dates ----
+str_yearrange <- function(start, end, active = c(FALSE))  {
+  strt <- as.character(year(start))
+  nd <- ifelse(active, "heute", as.character(year(end)))
+  ifelse(strt == nd, strt, paste0(strt, " -- ", nd))
+}
+
+split_description <- function(description) {
+  as.vector((str_split(paste0(description,""), ";")))
+}
+
+
 jobs %>% 
-  mutate(startyear = as.character(year(start))) |> 
-  mutate(endyear = as.character(year(end))) |>
-  mutate(endyear = ifelse(active == 1, "heute", endyear)) |>
-  rowwise() |>
-  mutate(desc_list = as.vector((str_split(paste0(description,""), ";")))) |> 
-  mutate(when = glue::glue("{startyear} - {endyear}")) %>%
   arrange(desc(start)) %>% 
+  rowwise() |> 
+  mutate(when = str_yearrange(start, end, active > 0)) |> 
   detailed_entries(
     what = name,
     when = when,
     with = with,
     where = location,
-    why = desc_list
+    why = split_description(description)
   )
 ```
 
+# Wissenschaftliche Abschlüsse
 
-
-# Some stuff about me
- * I poisoned myself doing research.
- * I was the first woman to win a Nobel prize
- * I was the first person and only woman to win a Nobel prize in two different sciences.
-
-# Education
-
-```{r}
-library(tibble)
-tribble(
-  ~ Degree, ~ Year, ~ Institution, ~ Where,
-  "Informal studies", "1889-91", "Flying University", "Warsaw, Poland",
-  "Master of Physics", "1893", "Sorbonne Université", "Paris, France",
-  "Master of Mathematics", "1894", "Sorbonne Université", "Paris, France"
-) %>% 
-  detailed_entries(Degree, Year, Institution, Where)
+```{r degrees}
+degrees %>% 
+  arrange(desc(start)) %>% 
+  rowwise() |> 
+  mutate(when = str_yearrange(start, end)) |> 
+  detailed_entries(
+    what = name,
+    when = when,
+    with = with,
+    where = location,
+    why = split_description(description)
+  )
 ```
 
-# Nobel Prizes
+# Ausbildung
+
+```{r education}
+education |> 
+  arrange(desc(start)) |> 
+  rowwise() |> 
+  mutate(when = str_yearrange(start, end)) |> 
+  detailed_entries(
+    what = name,
+    when = when,
+    with = with,
+    where = location,
+    why = split_description(description)
+  )
+```
+
+# Bewilligte Projekte
 
 ```{r}
-tribble(
-  ~Year, ~Type, ~Desc,
-  1903, "Physics", "Awarded for her work on radioactivity with Pierre Curie and Henri Becquerel",
-  1911, "Chemistry", "Awarded for the discovery of radium and polonium"
-) %>% 
+grants %>% 
+  arrange(desc(year)) %>% 
+  rowwise() |> 
   brief_entries(
-    glue::glue("Nobel Prize in {Type}"),
-    Year, 
-    Desc
+    what = split_description(name), 
+    when = year, 
+    with = funder
+    )
+```
+
+
+# Auszeichnungen und Preise
+```{r}
+awards %>% 
+  arrange(desc(year)) %>% 
+  rowwise() |> 
+  brief_entries(what = name, when = year, with = award_source)
+```
+
+# Mitgliedschaften
+
+```{r}
+memberships %>% 
+  arrange(desc(start)) %>%
+  rowwise() |> 
+  brief_entries(
+    what = name, 
+    when = "")
+```
+
+\pagebreak
+# Reviews und Mitwirkung in Programmkomitees
+
+
+```{r}
+# split and replace to allow renaming in document
+reviews %>% 
+  arrange(desc(review_type), desc(citescore)) %>%
+  pull(name) %>% 
+  glue_collapse(sep = ", ") -> adhocs
+
+committees %>% 
+  filter(position_type == "editorial") %>% 
+  pull(name) %>% 
+  glue_collapse(sep = ", ") -> editorial
+
+committees %>% 
+  filter(position_type == "committee") %>% 
+  pull(name) %>% 
+  glue_collapse(sep = ", ")  -> committee
+
+review_df <- data.frame() %>% 
+  bind_rows(data.frame(Name = committee, Type = "Programm-komitee")) %>% 
+  bind_rows(data.frame(Name = editorial, Type = "Editorial-Board")) %>% 
+  bind_rows(data.frame(Name = adhocs, Type = "Adhoc Reviews"))
+
+
+review_df %>% 
+  rowwise() |> 
+  brief_entries(what = Name, when = Type)
+```
+
+# Mitwirkung an der akademischen Selbstverwaltung
+
+```{r}
+services |> 
+  arrange(desc(start)) |> 
+  rowwise() |>
+  detailed_entries(
+    what = name,
+    when = str_yearrange(start, end, active > 0 ),
+    with = details,
+    where = location,
+    why = split_description(role)
   )
 ```
 
-# Publications
-
+# Beratung
 ```{r}
-library(dplyr)
-knitr::write_bib(c("vitae", "tibble"), "packages.bib")
-
-bibliography_entries("packages.bib") %>%
-  arrange(desc(author$family), issued)
+consulting %>%
+  arrange(desc(start)) %>% 
+  rowwise() |> 
+  detailed_entries(
+    what = name,
+    when = year(start),
+    with = client,
+    where = location,
+    why = role 
+  )
 ```
+
+# Erfahrung in der Hochschullehre
+
+## Lehre an der Universität zu Lübeck
+
+```{r include=TRUE}
+
+# SHORT VERSION 
+teaching %>%
+  filter(year(start) >= 2022) %>%
+  arrange(desc(start)) %>% 
+  rowwise() |> 
+  mutate(when = str_yearrange(start, end, active > 0)) |> 
+  vitae::brief_entries(
+    what = name,
+    when = when,
+    with = ""
+  )
+```
+## Lehre an der RWTH Aachen University
+```{r include=TRUE}
+
+# SHORT VERSION 
+teaching %>%
+  filter(year(start) < 2022) %>%
+  arrange(desc(start)) %>% 
+  mutate(when = str_yearrange(start, end, active > 0)) |> 
+  rowwise() |> 
+  vitae::brief_entries(
+    what = name,
+    when = when,
+    with = ""
+  )
+```
+
+\vspace{1em}
+\pagebreak
+# Eingeladene Vorträge
+
+```{r invited_talks}
+lectures %>% 
+  arrange(desc(lecture_date)) %>% 
+  detailed_entries(what = title,
+                   when = glue("{month(lecture_date, abbr = FALSE, label = FALSE)}/{year(lecture_date)}"),
+                   with = conference,
+                   where = location,
+                   why = NULL)
+```
+
+# Vorträge
+
+```{r talks}
+talks %>% 
+  arrange(desc(talk_date)) %>% 
+  detailed_entries(what = title,
+                   when = glue("{month(talk_date, label = FALSE)}/{year(talk_date)}"),
+                   with = conference,
+                   where = location,
+                   why = NULL)
+```
+
+
+
+# Softwareentwicklung für Forschung und Lehre
+
+```{r software,}
+software %>% 
+  arrange(desc(start)) %>% 
+  detailed_entries(
+    what = role, when = year(start), with = c(""), where = url, why = details)
+```
+
 

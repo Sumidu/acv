@@ -238,6 +238,9 @@ convert_reviews <- function() {
   # Create a connection to the database
   db <- get_db_source()
   
+  
+  jif <- readr::read_csv(here("data", "journal_ranking_data.csv"))
+  
   reviews <- read_csv(here("data", "de", "reviews.csv")) |> 
     tidyr::fill(Type) |> 
     filter(Type == "adhoc") |>
@@ -247,6 +250,30 @@ convert_reviews <- function() {
     mutate(id = row_number()) |> 
     select(id, name = Name, times, last_reviewed, review_type) |> 
     filter(!str_detect(name, "etc."))
+  
+  
+  # Find journal impact factors
+  title_list <- jif$Title |> unique() |> as.character()
+  review_list <-  reviews |>  filter(review_type == "journal") |>   pull(name) |>
+    unique() |> as.character() |> 
+    str_remove(" Konferenz") |> 
+    str_remove("MDPI ")
+  
+  matches <- 
+  tibble(my_name  = review_list, 
+         
+         jif_name = 
+         title_list[
+           stringdist::amatch(review_list,title_list, maxDist = Inf) 
+         ]
+  )
+  jif_relevant <- jif |> select(Title, CiteScore, sjr = `SJR-index`)
+  
+  reviews |> left_join(matches, by = c("name" = "my_name")) |> 
+    left_join(jif_relevant, by = c("jif_name" = "Title")) |> arrange(sjr) |> View()
+
+  
+  reviews$citescore <- c(1)
   
   copy_to_sqlite_with_pk(db, reviews, "reviews", "id")
   dbDisconnect(db)
