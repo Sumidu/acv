@@ -9,8 +9,12 @@ email: "andre.calerovaldez@uni-luebeck.de"
 profilepic: "`r paste0('..',stringr::str_remove(here::here('data','photo.jpeg'), here::here()))`"
 twitter: sumidu
 github: sumidu
+googlescholar: K6EVDoYAAAAJ
+#researchgate: Andre-Calero-Valdez
+orcid: 0000-0002-6214-1461
 #linkedin: mariecurie
 date: "`r format(Sys.time(), '%B %Y')`"
+documentclass: moderncv
 classoption: "sans"
 header-includes:
   - \usepackage[utf8]{inputenc}
@@ -18,7 +22,13 @@ header-includes:
   - \usepackage[sfdefault,scaled=.85]{FiraSans}
   - \usepackage{eurosym}
   - \usepackage{csquotes}
-output: vitae::moderncv
+output: 
+  vitae::moderncv:
+    keep_tex: false
+#    includes:
+#      in_header: header.tex
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -31,7 +41,6 @@ source(here::here("R", "getdata.R"))
 library(DBI)
 library(RSQLite)
 library(tidyverse)
-
 
 
 db <- dbConnect(RSQLite::SQLite(), here("data", "my_data.db"))
