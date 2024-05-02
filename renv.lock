@@ -82,7 +82,7 @@
       "Package": "R.oo",
       "Version": "1.26.0",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://cran.rstudio.com",
       "Requirements": [
         "R",
         "R.methodsS3",
@@ -125,6 +125,25 @@
         "R"
       ],
       "Hash": "45f0398006e83a5b10b72a90663d8d8c"
+    },
+    "RPostgres": {
+      "Package": "RPostgres",
+      "Version": "1.4.6",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "DBI",
+        "R",
+        "bit64",
+        "blob",
+        "cpp11",
+        "hms",
+        "lubridate",
+        "methods",
+        "plogr",
+        "withr"
+      ],
+      "Hash": "a3ccabc3de4657c14185c91f3e6d4b60"
     },
     "RSQLite": {
       "Package": "RSQLite",
@@ -274,7 +293,7 @@
       "Package": "bslib",
       "Version": "0.7.0",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://cran.rstudio.com",
       "Requirements": [
         "R",
         "base64enc",
@@ -307,7 +326,7 @@
       "Package": "callr",
       "Version": "3.7.6",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://cran.rstudio.com",
       "Requirements": [
         "R",
         "R6",
@@ -412,7 +431,7 @@
       "Package": "data.table",
       "Version": "1.15.4",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://cran.rstudio.com",
       "Requirements": [
         "R",
         "methods"
@@ -886,7 +905,7 @@
       "Package": "htmltools",
       "Version": "0.5.8.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://cran.rstudio.com",
       "Requirements": [
         "R",
         "base64enc",
@@ -928,7 +947,7 @@
       "Package": "igraph",
       "Version": "2.0.3",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://cran.rstudio.com",
       "Requirements": [
         "Matrix",
         "R",
@@ -982,7 +1001,7 @@
       "Package": "knitr",
       "Version": "1.46",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://cran.rstudio.com",
       "Requirements": [
         "R",
         "evaluate",
@@ -1116,7 +1135,7 @@
       "Package": "munsell",
       "Version": "0.5.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://cran.rstudio.com",
       "Requirements": [
         "colorspace",
         "methods"
@@ -1410,7 +1429,7 @@
       "Package": "rstudioapi",
       "Version": "0.16.0",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://cran.rstudio.com",
       "Hash": "96710351d642b70e8f02ddeb237c46a7"
     },
     "rvest": {
@@ -1498,6 +1517,17 @@
         "stringr"
       ],
       "Hash": "3838071b66e0c566d55cc26bd6e27bf4"
+    },
+    "stringdist": {
+      "Package": "stringdist",
+      "Version": "0.9.12",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "parallel"
+      ],
+      "Hash": "f360720fa3feb7db9d4133b31ebb067f"
     },
     "stringi": {
       "Package": "stringi",
@@ -1847,7 +1877,7 @@
       "Package": "xfun",
       "Version": "0.43",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "https://cran.rstudio.com",
       "Requirements": [
         "grDevices",
         "stats",
