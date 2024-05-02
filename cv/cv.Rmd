@@ -56,9 +56,8 @@ host_name <- "aws-0-eu-central-1.pooler.supabase.com"
 db_user <- Sys.getenv("SUPABASEUSER")
 db_password <- Sys.getenv("SUPABASEPW")
 
-# Comment this line to avoid updating the google scholar profile
 # This allows the cronjob to determine if the google scholar profile should be updated on cronjobs
-# Sys.setenv("UPDATEGOOGLESCHOLAR" = "TRUE")
+# Sys.setenv("UPDATEGOOGLESCHOLAR" = "TRUE") # Comment this line to avoid updating every time
 update_google_scholar <- Sys.getenv("UPDATEGOOGLESCHOLAR")
 update_pubs <- FALSE
 
@@ -69,6 +68,7 @@ if(str_length(update_google_scholar)>0) {
   } 
 }
 
+# Use the postgres database
 db <- dbConnect(RPostgres::Postgres(), 
                 dbname = "postgres", host = host_name, port = 5432, 
                 user = db_user, 
@@ -76,11 +76,9 @@ db <- dbConnect(RPostgres::Postgres(),
                 gssencmode="disable"
                 )
 
-
-
+# Use the SQLite Local Database
 # db <- dbConnect(RSQLite::SQLite(), here("data", "my_data.db"))
-#list all tables
-dbListTables(db)
+
 jobs <- tbl(db, "jobs") |> collect()
 degrees <- tbl(db, "degrees") |> collect()
 education <- tbl(db, "education") |> collect()

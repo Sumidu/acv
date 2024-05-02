@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 0 * * MON'
     
-name: Render cv
+name: Auto Render CV
 
 jobs:
   render:
