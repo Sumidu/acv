@@ -41,7 +41,7 @@ source(here::here("R", "getdata.R"))
 library(DBI)
 library(RSQLite)
 library(RPostgres)
-library(tidyverse)
+
 
 
 # Load database from PostGres using Remote URL
@@ -59,7 +59,7 @@ db <- dbConnect(RPostgres::Postgres(),
 
 
 
-db <- dbConnect(RSQLite::SQLite(), here("data", "my_data.db"))
+# db <- dbConnect(RSQLite::SQLite(), here("data", "my_data.db"))
 #list all tables
 dbListTables(db)
 jobs <- tbl(db, "jobs") |> collect()
@@ -113,7 +113,7 @@ vitae::brief_entries(pd_df, when = meta, what = input, with = "")
 
 \vspace{1em}
 
-## Academische Metriken
+## Akademische Metriken
 
 ```{r metrics, results="asis"}
 
