@@ -33,7 +33,7 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
-library(vitae)
+library(vitae) # remember to use sumidu/vitae
 library(tidyverse)
 library(glue)
 library(here)
@@ -53,6 +53,8 @@ library(RPostgres)
 # Load database from PostGres using Remote URL
 
 host_name <- "aws-0-eu-central-1.pooler.supabase.com"
+
+# These have to be defined as github secrets
 db_user <- Sys.getenv("SUPABASEUSER")
 db_password <- Sys.getenv("SUPABASEPW")
 
