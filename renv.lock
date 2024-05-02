@@ -1817,8 +1817,13 @@
     "vitae": {
       "Package": "vitae",
       "Version": "0.5.4",
-      "Source": "Repository",
-      "Repository": "RSPM",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "vitae",
+      "RemoteUsername": "Sumidu",
+      "RemoteRef": "myversion",
+      "RemoteSha": "9f5f10f104fc9de6cd2d1fbb006de830702fd40c",
       "Requirements": [
         "R",
         "dplyr",
@@ -1833,7 +1838,7 @@
         "xfun",
         "yaml"
       ],
-      "Hash": "b0bb54c616daeada52a83887c5e7d0cd"
+      "Hash": "d96c4630fd2a4eaabbd638ecd07d95de"
     },
     "vroom": {
       "Package": "vroom",
