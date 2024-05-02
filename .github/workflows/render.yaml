@@ -43,8 +43,7 @@ jobs:
           # set the SUPABASEUSER and SUPABASEPW secrets in the repository settings
           SUPABASEUSER: ${{ secrets.SUPABASEUSER }}
           SUPABASEPW: ${{ secrets.SUPABASEPW }}
-          if: ${{github.event_name == 'schedule'}}
-            UPDATEGOOGLESCHOLAR: TRUE
+          UPDATEGOOGLESCHOLAR: ${{github.event_name == 'schedule'}}
         run: Rscript -e 'rmarkdown::render("cv/cv.Rmd", output_format = "vitae::moderncv")'
       - name: Generate release tag
         id: generate_release_tag
