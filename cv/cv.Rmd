@@ -42,7 +42,13 @@ library(DBI)
 library(RSQLite)
 library(RPostgres)
 
-
+# -----
+# Before trying new stuff please create a database backup from the supabase database
+# R/backupPostgres.R has the code to do just that
+#
+# Use Beekeeper Studio or something similar to edit the PostGres database directly
+# Weekly updates are released automatically using the github action.
+# -----
 
 # Load database from PostGres using Remote URL
 

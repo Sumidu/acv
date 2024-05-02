@@ -1,8 +1,6 @@
 
-# This script loads data from a SQLite database and migrates it to a Postgres database.
-# any database changes are lost during transfer
-if(FALSE){
-  
+# This script copies the Postgres Database to a local SQLite database
+
 library(tidyverse)
 library(DBI)
 library(RSQLite)
@@ -42,4 +40,4 @@ dbDisconnect(db)
 dbListTables(target)
 dbDisconnect(target)
 
-}
+
