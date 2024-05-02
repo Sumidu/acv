@@ -56,6 +56,17 @@ host_name <- "aws-0-eu-central-1.pooler.supabase.com"
 db_user <- Sys.getenv("SUPABASEUSER")
 db_password <- Sys.getenv("SUPABASEPW")
 
+# Comment this line to avoid updating the google scholar profile
+# This allows the cronjob to determine if the google scholar profile should be updated on cronjobs
+# Sys.setenv("UPDATEGOOGLESCHOLAR" = "TRUE")
+update_google_scholar <- Sys.getenv("UPDATEGOOGLESCHOLAR")
+
+if(str_length(update_google_scholar)>0) {
+  update_pubs <- TRUE
+} else {
+  update_pubs <- FALSE
+}
+
 db <- dbConnect(RPostgres::Postgres(), 
                 dbname = "postgres", host = host_name, port = 5432, 
                 user = db_user, 
@@ -92,7 +103,7 @@ dbDisconnect(db)
 lang <- "de"
 
 
-scholar_profile <- get_scholar_profile(update_pubs = FALSE)
+scholar_profile <- get_scholar_profile(update_pubs = update_pubs)
 ```
 
 
