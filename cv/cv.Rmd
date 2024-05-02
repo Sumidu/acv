@@ -7,7 +7,7 @@ address: "Institute of Multimedia and Interactive Systems, University of Lübeck
 www: calerovaldez.com
 email: "andre.calerovaldez@uni-luebeck.de"
 profilepic: "`r paste0('..',stringr::str_remove(here::here('data','photo.jpeg'), here::here()))`"
-twitter: sumidu
+#twitter: sumidu
 github: sumidu
 googlescholar: K6EVDoYAAAAJ
 #researchgate: Andre-Calero-Valdez
