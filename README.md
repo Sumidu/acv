@@ -7,7 +7,7 @@
 
 This repository contains the source code for my auto-updating curriculum vitae. 
 The CV is written in R Markdown and rendered to a PDF file using GitHub Actions. 
-The rendered PDF file is available in the [Releases].
+The rendered PDF file is available in the [Releases](https://github.com/Sumidu/acv/releases).
 
 ## Quicklink
 

@@ -63,7 +63,7 @@ update_pubs <- FALSE
 
 # 
 if(str_length(update_google_scholar)>0) {
-  if(update_google_scholar == "TRUE") {
+  if(update_google_scholar == "true") {
     update_pubs <- TRUE
   } 
 }
@@ -123,7 +123,7 @@ pd_df <- tribble(~meta, ~input,
               "Languages", "German (Muttersprache)",
               "",         "Englisch (fließend)",
               "",         "Spanisch (Grundkenntnisse)",
-              "test", update_google_scholar
+              # "test", update_google_scholar # this is to test the environment variable
               )
 
 vitae::brief_entries(pd_df, when = meta, what = input, with = "") 
