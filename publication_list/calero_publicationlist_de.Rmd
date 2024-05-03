@@ -1,0 +1,167 @@
+---
+title: "Schriftenverzeichnis"
+author: "André Calero Valdez"
+date: "`r Sys.setlocale('LC_TIME', 'de_DE.UTF-8'); format(Sys.Date(), format = '%d. %B %Y')`"
+fontsize: 10pt
+linestretch: 1.15
+geometry: margin=1in
+csquotes: true
+header-includes:
+  - \usepackage[sfdefault,scaled=.85]{FiraSans}
+  #- \usepackage{palatino}
+  - \usepackage[ngerman]{babel}
+  - \usepackage[utf8]{inputenc}
+  - \usepackage[T1]{fontenc}
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{multirow}
+  - \usepackage{wrapfig}
+  - \usepackage{float}
+  - \usepackage{colortbl}
+  - \usepackage{pdflscape}
+  - \usepackage{tabu}
+  - \usepackage{threeparttable}
+  - \usepackage{threeparttablex}
+  - \usepackage[normalem]{ulem}
+  - \usepackage{makecell}
+  - \usepackage{xcolor}
+  - \usepackage{csquotes}
+
+output:
+  pdf_document:
+    template: template.tex
+    df_print: kable
+  
+  
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+
+pubfile <- here::here("data","final_publications.rds")
+publications <- read_rds(pubfile)
+
+formatEntry <- function(id, author, title, journal, number, cites, year, cid, pubid){
+  res <- paste0(" 1. ")
+  if (str_length(author) > 0) {
+    res <- paste0(res, author, " ")
+  }
+  if (str_length(year) > 0) {
+    res <- paste0(res, "(", year, "). ")
+  }
+  if (str_length(title) > 0) {
+    res <- paste0(res, title, ". ")
+  }
+  if (str_length(journal) > 0) {
+    res <- paste0(res, " In: *", journal, "*")
+  }
+  if (str_length(number) > 0) {
+    res <- paste0(res, ", ", number)
+  }
+  if (cites > 0) {
+      res <- paste0(res, " (cited ", cites, " times)")
+  } 
+  if (!is.na(cid)) {
+    if (cid == "(accepted)") {
+      res <- paste0(res, " **(accepted)**")
+    }
+    if (cid == "(under revision)") {
+      res <- paste0(res, " **(under revision)**")
+    }
+    if (cid == "(submitted)") {
+      res <- paste0(res, " **(submitted)**")
+    }
+  }
+
+
+  paste0(res, "\n")
+}
+
+```
+
+**Arbeiten, die in Publikationsorganen mit einer wissenschaftlichen Qualitätssicherung eingereicht, veröffentlicht oder endgültig angenommen
+sind.**
+
+# Fachzeitschriften mit Peer-review
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results="asis"}
+pubs <- publications %>% filter(type == "Journal")
+
+pubs <- pubs %>% 
+  arrange(desc(year)) %>% 
+  mutate(id = 1:n()) %>% 
+  rowwise() %>% 
+  mutate(mdtext = formatEntry(id, author, title, journal, number, cites, year, cid, pubid)) 
+
+pubs %>%
+  arrange(desc(year)) %>% 
+  pull("mdtext") %>% cat()
+```
+
+
+# Konferenzen mit Peer-review
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results="asis"}
+pubs <- publications %>% filter(type == "Conference")
+
+pubs <- pubs %>% 
+  arrange(desc(year)) %>% 
+  mutate(id = 1:n()) %>% 
+  rowwise() %>% 
+  mutate(mdtext = formatEntry(id, author, title, journal, number, cites, year, cid, pubid)) 
+
+pubs %>%
+  arrange(desc(year)) %>% 
+  pull("mdtext") %>% cat()
+```
+
+# Buchbeiträge mit Peer-review
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results="asis"}
+pubs <- publications %>% filter(type == "Book Chapter")
+
+pubs <- pubs %>% 
+  arrange(desc(year)) %>% 
+  mutate(id = 1:n()) %>% 
+  rowwise() %>% 
+  mutate(mdtext = formatEntry(id, author, title, journal, number, cites, year, cid, pubid)) 
+
+pubs %>%
+  arrange(desc(year)) %>% 
+  pull("mdtext") %>% cat()
+```
+
+
+# Workshops
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results="asis"}
+pubs <- publications %>% filter(type == "Workshop")
+
+pubs <- pubs %>% 
+  arrange(desc(year)) %>% 
+  mutate(id = 1:n()) %>% 
+  rowwise() %>% 
+  mutate(mdtext = formatEntry(id, author, title, journal, number, cites, year, cid, pubid)) 
+
+pubs %>%
+  arrange(desc(year)) %>% 
+  pull("mdtext") %>% cat()
+```
+
+# Bücher
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results="asis"}
+pubs <- publications %>% filter(type == "Book")
+
+pubs <- pubs %>% 
+  arrange(desc(year)) %>% 
+  mutate(id = 1:n()) %>% 
+  rowwise() %>% 
+  mutate(mdtext = formatEntry(id, author, title, journal, number, cites, year, cid, pubid)) 
+
+pubs %>%
+  arrange(desc(year)) %>% 
+  pull("mdtext") %>% cat()
+```
