@@ -241,6 +241,7 @@ convert_reviews <- function() {
   
   jif <- readr::read_csv(here("data", "journal_ranking_data.csv"))
   
+  # find all the conferences
   reviews <- read_csv(here("data", "de", "reviews.csv")) |> 
     tidyr::fill(Type) |> 
     filter(Type == "adhoc") |>
@@ -389,6 +390,17 @@ convert_theses <- function() {
   
   copy_to_sqlite_with_pk(db, theses, "theses", "id")
   dbDisconnect(db)
+}
+
+
+convert_core <- function(){
+  db <- get_db_source()
+  read_csv(here::here("data","core.csv"), 
+           col_names = c("id", "Title", "Acronym", "Source",  "Rank", "Note", "Primary-for", "Comments", "Average-Rating")) |> 
+    arrange(id) |> 
+    select(-Note, -`Primary-for`, -Comments, -`Average-Rating`) |> 
+    
+    
 }
 
 generate_teaching_evalution <- function() {

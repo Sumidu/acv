@@ -12,6 +12,7 @@ github: sumidu
 googlescholar: K6EVDoYAAAAJ
 #researchgate: Andre-Calero-Valdez
 orcid: 0000-0002-6214-1461
+aboutme: "Forschungsschwerpunkte:\\ Mensch-Technik Interaktion, Usable Safety Engineering, soziotechnische Systeme, künstliche Intelligenz, Technologieakzeptanz"
 #linkedin: mariecurie
 date: "`r format(Sys.time(), '%B %Y')`"
 documentclass: moderncv
@@ -61,7 +62,7 @@ db_password <- Sys.getenv("SUPABASEPW")
 # This allows the cronjob to determine if the google scholar profile should be updated on cronjobs
 # Sys.setenv("UPDATEGOOGLESCHOLAR" = "TRUE") # Comment this line to avoid updating every time
 update_google_scholar <- Sys.getenv("UPDATEGOOGLESCHOLAR")
-update_pubs <- FALSE
+update_pubs <- TRUE
 
 # 
 if(str_length(update_google_scholar)>0) {
@@ -115,11 +116,11 @@ scholar_profile <- get_scholar_profile(update_pubs = update_pubs)
 ```{r about_me, results="asis"}
 pd_df <- tribble(~meta, ~input,
               "Name", "Univ.-Prof. Dr. phil. André Calero Valdez", 
-              #"Geburtsdatum","22. Januar 1981",
-              #"Familienstand", "verheiratet mit Eva-Maria Peters (Studienrätin)",
-              #"Kinder", "Tochter (6 Jahre alt), Sohn (2 Jahre)",
-              #"Adresse", "Poelring 5",
-              #"", "23560 Lübeck",
+              "Geburtsdatum","22. Januar 1981",
+              "Familienstand", "verheiratet mit Eva-Maria Peters (Studienrätin)",
+              "Kinder", "Tochter (6 Jahre alt), Sohn (2 Jahre)",
+              "Adresse", "Poelring 5",
+              "", "23560 Lübeck",
               "Email", "andrecalerovaldez@gmail.com",
               "www", "www.calerovaldez.com",
               "Languages", "German (Muttersprache)",
