@@ -400,7 +400,7 @@ software %>%
 
 
 
-```{r}
+```{r generate_teaching_plot, message=TRUE, warning=TRUE, include=FALSE}
 teaching_evaluations %>% 
   left_join(teaching, by = join_by("teaching_id" == "id")) %>% 
   mutate(year = ifelse(semester_type == "winter", year + 0.5, year )) %>%
