@@ -44,6 +44,7 @@ jobs:
           install.packages(packageurl, repos=NULL, type="source")
           packageurl <- "https://cran.r-project.org/src/contrib/Archive/xfun/xfun_0.42.tar.gz"
           install.packages(packageurl, repos=NULL, type="source")
+        shell: Rscript {0}
       - name: Render cv
         env:
           # set the SUPABASEUSER and SUPABASEPW secrets in the repository settings
