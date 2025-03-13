@@ -38,6 +38,12 @@ jobs:
           install.packages("tinytex")
           tinytex::install_tinytex()
         shell: Rscript {0}
+      - name: Install old xfun and knitr
+        run: |
+          packageurl <- "https://cran.r-project.org/src/contrib/Archive/knitr/knitr_1.45.tar.gz"
+          install.packages(packageurl, repos=NULL, type="source")
+          packageurl <- "https://cran.r-project.org/src/contrib/Archive/xfun/xfun_0.42.tar.gz"
+          install.packages(packageurl, repos=NULL, type="source")
       - name: Render cv
         env:
           # set the SUPABASEUSER and SUPABASEPW secrets in the repository settings
