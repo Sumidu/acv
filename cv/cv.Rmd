@@ -23,6 +23,8 @@ header-includes:
   - \usepackage[sfdefault,scaled=.85]{FiraSans}
   - \usepackage{eurosym}
   - \usepackage{csquotes}
+#  - \usepackage{fontawesome5} # not working
+  
 output: 
   vitae::moderncv:
     keep_tex: false
