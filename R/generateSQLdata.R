@@ -398,9 +398,7 @@ convert_core <- function(){
   read_csv(here::here("data","core.csv"), 
            col_names = c("id", "Title", "Acronym", "Source",  "Rank", "Note", "Primary-for", "Comments", "Average-Rating")) |> 
     arrange(id) |> 
-    select(-Note, -`Primary-for`, -Comments, -`Average-Rating`) |> 
-    
-    
+    select(-Note, -`Primary-for`, -Comments, -`Average-Rating`) 
 }
 
 generate_teaching_evalution <- function() {
