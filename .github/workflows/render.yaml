@@ -30,14 +30,14 @@ jobs:
           install.packages("openssl")
           install.packages("rmarkdown")
           install.packages("vitae")
-        shell: Rscript {0}
+        shell: Rscript -e {0}
       - uses: r-lib/actions/setup-renv@v2
       - uses: r-lib/actions/setup-pandoc@v2
       - name: Install tinytex
         run: |
           install.packages("tinytex")
           tinytex::install_tinytex()
-        shell: Rscript {0}
+        shell: Rscript -e {0}
       - name: Render cv
         env:
           # set the SUPABASEUSER and SUPABASEPW secrets in the repository settings
