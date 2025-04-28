@@ -45,6 +45,26 @@ jobs:
       #    install.packages("rmarkdown")
       #    install.packages("vitae")
       #  shell: Rscript {0}
+      - name: Setup R package environment for nlme
+      run: |
+        # Create a .R directory in the home directory if it doesn't exist
+        mkdir -p ~/.R
+        
+        # Create or modify the Makevars file
+        cat > ~/.R/Makevars << EOF
+        CFLAGS=-I/opt/homebrew/opt/gettext/include -I/usr/local/opt/gettext/include
+        CPPFLAGS=-I/opt/homebrew/opt/gettext/include -I/usr/local/opt/gettext/include
+        LDFLAGS=-L/opt/homebrew/opt/gettext/lib -L/usr/local/opt/gettext/lib
+        PKG_CONFIG_PATH=/opt/homebrew/opt/gettext/lib/pkgconfig:/usr/local/opt/gettext/lib/pkgconfig
+        EOF
+        
+        # Verify gettext installation and location
+        find /opt/homebrew -name "libintl.h" || echo "Not found in /opt/homebrew"
+        find /usr/local -name "libintl.h" || echo "Not found in /usr/local"
+        
+        # Install nlme directly before renv restore
+        R -e 'install.packages("nlme", repos="https://cloud.r-project.org", type="source")'
+      shell: bash
       - uses: r-lib/actions/setup-renv@v2
       - uses: r-lib/actions/setup-pandoc@v2
       - name: Install tinytex
