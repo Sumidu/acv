@@ -63,7 +63,7 @@ jobs:
           find /usr/local -name "libintl.h" || echo "Not found in /usr/local"
           
           # Install nlme directly before renv restore
-          R -e 'install.packages("nlme", repos="https://cloud.r-project.org", type="source")'
+          R -e 'install.packages(c("nlme","digest"), repos="https://cloud.r-project.org", type="source")'
         shell: bash
       - uses: r-lib/actions/setup-renv@v2
       - uses: r-lib/actions/setup-pandoc@v2
