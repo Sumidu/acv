@@ -25,6 +25,15 @@ jobs:
           export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@1.1/lib/pkgconfig"
           export LD_LIBRARY_PATH="/opt/homebrew/opt/openssl@1.1/lib"
         shell: bash
+      # Add gettext installation to fix libintl.h error
+      - name: Install gettext
+        run: |
+          brew install gettext
+          brew link gettext --force
+          echo "CFLAGS=-I/opt/homebrew/opt/gettext/include ${CFLAGS}" >> $GITHUB_ENV
+          echo "LDFLAGS=-L/opt/homebrew/opt/gettext/lib ${LDFLAGS}" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=/opt/homebrew/opt/gettext/lib/pkgconfig:${PKG_CONFIG_PATH}" >> $GITHUB_ENV
+        shell: bash
       #- name: Install required packages
       #  run: |
       #    install.packages("openssl")
