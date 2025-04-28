@@ -31,6 +31,7 @@ jobs:
           brew install gettext
           brew link gettext --force
           echo "CFLAGS=-I/opt/homebrew/opt/gettext/include ${CFLAGS}" >> $GITHUB_ENV
+          echo "CPPFLAGS=-I/opt/homebrew/opt/gettext/include ${CPPFLAGS}" >> $GITHUB_ENV
           echo "LDFLAGS=-L/opt/homebrew/opt/gettext/lib ${LDFLAGS}" >> $GITHUB_ENV
           echo "PKG_CONFIG_PATH=/opt/homebrew/opt/gettext/lib/pkgconfig:${PKG_CONFIG_PATH}" >> $GITHUB_ENV
         shell: bash
@@ -54,6 +55,14 @@ jobs:
      #      packageurl <- "https://cran.r-project.org/src/contrib/Archive/xfun/xfun_0.42.tar.gz"
      #      install.packages(packageurl, repos=NULL, type="source")
      #    shell: Rscript {0}
+      - name: Setup R package environment
+        run: |
+          echo "R_MAKEVARS_USER=${HOME}/.R/Makevars" >> $GITHUB_ENV
+          mkdir -p ${HOME}/.R
+          echo "CFLAGS=-I/opt/homebrew/opt/gettext/include" > ${HOME}/.R/Makevars
+          echo "CPPFLAGS=-I/opt/homebrew/opt/gettext/include" >> ${HOME}/.R/Makevars
+          echo "LDFLAGS=-L/opt/homebrew/opt/gettext/lib" >> ${HOME}/.R/Makevars
+        shell: bash
       - name: Render cv
         env:
           # set the SUPABASEUSER and SUPABASEPW secrets in the repository settings
